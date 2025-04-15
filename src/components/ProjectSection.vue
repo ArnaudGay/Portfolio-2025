@@ -6,7 +6,7 @@
         
         <div class="project-card">
           <div class="project-header">
-            <img src="/assets/logo/ey-logo.jpg" alt="Logo EY" class="project-logo">
+            <img :src="eyLogo" alt="Logo EY" class="project-logo">
             <h3>EY Fabernovel - Chef de projet application mobile</h3>
             <span class="project-date">Juin - Octobre 2024</span>
             <a href="https://fabernovel.com" target="_blank" class="project-link">
@@ -35,7 +35,7 @@
 
         <div class="project-card">
           <div class="project-header">
-            <img src="/assets/logo/synerghetic-logo.svg" alt="Logo Synerg'hetic" class="project-logo">
+            <img :src="synergheticLogo" alt="Logo Synerg'hetic" class="project-logo">
             <h3>Synerg'hetic - DSI</h3>
             <span class="project-date">Mai 2024 - Mai 2025</span>
             <a href="https://synerghetic.fr" target="_blank" class="project-link">
@@ -60,13 +60,13 @@
             </div>
           </div>
           <div class="project-image">
-            <img src="/assets/images/mandat-2425.jpg" alt="Image projet Synerg'hetic">
+            <img :src="mandatImage" alt="Image projet Synerg'hetic">
           </div>
         </div>
 
         <div class="project-card">
           <div class="project-header">
-            <img src="/assets/logo/logo-badier.jpg" alt="Logo Laurent Badier" class="project-logo">
+            <img :src="badierLogo" alt="Logo Laurent Badier" class="project-logo">
             <h3>Projet Hackathon – Marketing & Site pour un artiste</h3>
             <a href="https://laurentbadier.com" target="_blank" class="project-link">
               laurentbadier.com
@@ -92,14 +92,14 @@
             <div class="project-results">
               <h4>Résultats</h4>
               <ul>
-                <li>Maquette du site livré rapidement</li>
+                <li>Site fonctionnel livré rapidement</li>
                 <li>Visibilité accrue sur réseaux sociaux</li>
                 <li>Ton ludique et décalé</li>
               </ul>
             </div>
           </div>
           <div class="project-image">
-            <img src="/assets/images/hackaton.png" alt="Image projet Hackathon">
+            <img :src="hackathonImage" alt="Image projet Hackathon">
           </div>
         </div>
       </div>
@@ -110,6 +110,13 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import { useIntersectionObserver } from '@vueuse/core';
+
+// Import des images
+import eyLogo from '../assets/logo/ey-logo.jpg';
+import synergheticLogo from '../assets/logo/synerghetic-logo.svg';
+import badierLogo from '../assets/logo/logo-badier.jpg';
+import mandatImage from '../assets/images/mandat-2425.jpg';
+import hackathonImage from '../assets/images/hackaton.png';
 
 const isVisible = ref(false);
 const projectContent = ref(null);
