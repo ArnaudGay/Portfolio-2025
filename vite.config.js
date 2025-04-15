@@ -12,6 +12,13 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: resolve(__dirname, 'index.html')
+      },
+      output: {
+        format: 'es',
+        manualChunks: {
+          'vue': ['vue'],
+          'vueuse': ['@vueuse/core']
+        }
       }
     }
   },
@@ -20,5 +27,8 @@ export default defineConfig({
       '@': resolve(__dirname, 'src'),
       'vue': 'vue/dist/vue.esm-bundler.js'
     }
+  },
+  optimizeDeps: {
+    include: ['vue', '@vueuse/core']
   }
 })
