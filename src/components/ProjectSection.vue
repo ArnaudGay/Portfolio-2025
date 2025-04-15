@@ -6,8 +6,13 @@
         
         <div class="project-card">
           <div class="project-header">
+            <img src="/assets/logo/ey-logo.jpg" alt="Logo EY" class="project-logo">
             <h3>EY Fabernovel - Chef de projet application mobile</h3>
             <span class="project-date">Juin - Octobre 2024</span>
+            <a href="https://fabernovel.com" target="_blank" class="project-link">
+              fabernovel.com
+              <span class="link-arrow">→</span>
+            </a>
           </div>
 
           <div class="project-details">
@@ -30,8 +35,13 @@
 
         <div class="project-card">
           <div class="project-header">
+            <img src="/assets/logo/synerghetic-logo.svg" alt="Logo Synerg'hetic" class="project-logo">
             <h3>Synerg'hetic - DSI</h3>
             <span class="project-date">Mai 2024 - Mai 2025</span>
+            <a href="https://synerghetic.fr" target="_blank" class="project-link">
+              synerghetic.fr
+              <span class="link-arrow">→</span>
+            </a>
           </div>
 
           <div class="project-details">
@@ -49,10 +59,14 @@
               </ul>
             </div>
           </div>
+          <div class="project-image">
+            <img src="/assets/images/mandat-2425.jpg" alt="Image projet Synerg'hetic">
+          </div>
         </div>
 
         <div class="project-card">
           <div class="project-header">
+            <img src="/assets/logo/logo-badier.jpg" alt="Logo Laurent Badier" class="project-logo">
             <h3>Projet Hackathon – Marketing & Site pour un artiste</h3>
             <a href="https://laurentbadier.com" target="_blank" class="project-link">
               laurentbadier.com
@@ -78,11 +92,14 @@
             <div class="project-results">
               <h4>Résultats</h4>
               <ul>
-                <li>Site fonctionnel livré rapidement</li>
+                <li>Maquette du site livré rapidement</li>
                 <li>Visibilité accrue sur réseaux sociaux</li>
                 <li>Ton ludique et décalé</li>
               </ul>
             </div>
+          </div>
+          <div class="project-image">
+            <img src="/assets/images/hackaton.png" alt="Image projet Hackathon">
           </div>
         </div>
       </div>
@@ -134,6 +151,8 @@ onMounted(() => {
     transition: var(--transition-normal);
     margin-bottom: var(--spacing-xl);
     border: 2px solid transparent;
+    display: flex;
+    flex-direction: column;
 
     &:hover {
       transform: translateY(-5px);
@@ -152,11 +171,20 @@ onMounted(() => {
     padding-bottom: var(--spacing-md);
     border-bottom: 1px solid var(--color-border);
 
+    .project-logo {
+      height: 40px;
+      width: auto;
+      margin-right: var(--spacing-md);
+      flex-shrink: 0;
+      object-fit: contain;
+    }
+
     h3 {
       color: var(--color-primary);
       margin: 0;
       flex: 1;
       min-width: 300px;
+      flex-grow: 1;
     }
 
     .project-date {
@@ -191,6 +219,7 @@ onMounted(() => {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: var(--spacing-lg);
+    margin-top: var(--spacing-md);
 
     h4 {
       color: var(--color-primary-dark);
@@ -238,6 +267,22 @@ onMounted(() => {
           left: 0;
         }
       }
+    }
+  }
+
+  .project-image {
+    margin-top: var(--spacing-lg);
+    width: 100%;
+    max-height: 400px;
+    overflow: hidden;
+    border-radius: 12px;
+    border: 1px solid var(--color-border);
+
+    img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
   }
 }
