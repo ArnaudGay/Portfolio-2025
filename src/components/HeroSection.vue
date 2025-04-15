@@ -43,72 +43,122 @@ const scrollToAbout = () => {
 
 <style lang="scss" scoped>
 .hero {
-  background-color: var(--color-background);
   min-height: 100vh;
   display: flex;
   align-items: center;
+  justify-content: center;
   position: relative;
   overflow: hidden;
+  padding: var(--spacing-xl) 0;
+  background-color: var(--color-background);
 
   .container {
     position: relative;
-    z-index: 1;
-    width: 100%;
+    z-index: 2;
+    max-width: 800px;
+    text-align: center;
+    padding: 0 var(--spacing-lg);
   }
 
   .hero-content {
-    max-width: 800px;
-    margin: 0 auto;
-    text-align: center;
-  }
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
 
-  h1 {
-    color: var(--color-primary-light);
-    margin-bottom: var(--spacing-lg);
-    line-height: 1.2;
-    font-size: clamp(2rem, 5vw, 3.5rem);
-  }
-
-  .subtitle {
-    font-size: 1.25rem;
-    color: var(--color-text);
-    margin-bottom: var(--spacing-xl);
-    line-height: 1.6;
-  }
-
-  .cta-button {
-    background-color: var(--color-primary);
-    color: var(--color-background);
-    border: none;
-    padding: var(--spacing-sm) var(--spacing-lg);
-    font-size: 1.1rem;
-    border-radius: 50px;
-    cursor: pointer;
-    transition: var(--transition-fast);
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-
-    &:hover {
-      transform: translateY(-2px);
-      box-shadow: var(--shadow-md);
+    &.visible {
+      opacity: 1;
+      transform: translateY(0);
     }
+
+    h1 {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 700;
+      margin-bottom: var(--spacing-md);
+      line-height: 1.2;
+      background: linear-gradient(135deg, var(--color-primary), var(--color-primary-light));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      max-width: 100%;
+      word-wrap: break-word;
+    }
+
+    p {
+      font-size: clamp(1.1rem, 2vw, 1.25rem);
+      line-height: 1.6;
+      margin-bottom: var(--spacing-lg);
+      color: var(--color-text-secondary);
+      max-width: 100%;
+      word-wrap: break-word;
+    }
+
+    .cta-button {
+      background-color: var(--color-primary);
+      color: var(--color-background);
+      border: none;
+      padding: var(--spacing-sm) var(--spacing-lg);
+      font-size: 1.1rem;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: var(--transition-fast);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+
+      &:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-md);
+        background-color: var(--color-primary-dark);
+      }
+    }
+  }
+
+  .hero-buttons {
+    display: flex;
+    gap: var(--spacing-md);
+    justify-content: center;
+    flex-wrap: wrap;
+    
+  }
+
+  .hero-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+    opacity: 0.1;
+    background: radial-gradient(circle at center, var(--color-primary) 0%, transparent 70%);
   }
 }
 
 @media (max-width: 768px) {
   .hero {
-    h1 {
-      font-size: 2rem;
+    padding: var(--spacing-lg) 0;
+
+    .container {
+      padding: 0 var(--spacing-md);
     }
 
-    .subtitle {
-      font-size: 1rem;
+    .hero-content {
+      h1 {
+        font-size: clamp(2rem, 4vw, 3rem);
+      }
+
+      p {
+        font-size: clamp(1rem, 1.8vw, 1.1rem);
+      }
+
+      .cta-button {
+        padding: var(--spacing-xs) var(--spacing-md);
+        font-size: 1rem;
+      }
     }
 
-    .cta-button {
-      padding: var(--spacing-xs) var(--spacing-md);
-      font-size: 1rem;
+    .hero-buttons {
+      flex-direction: column;
+      align-items: center;
     }
   }
 }

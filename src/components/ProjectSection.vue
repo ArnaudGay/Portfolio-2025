@@ -112,11 +112,11 @@ import { ref, onMounted } from 'vue';
 import { useIntersectionObserver } from '@vueuse/core';
 
 // Import des images
-import eyLogo from '../assets/logo/ey-logo.jpg';
-import synergheticLogo from '../assets/logo/synerghetic-logo.svg';
-import badierLogo from '../assets/logo/logo-badier.jpg';
-import mandatImage from '../assets/images/mandat-2425.jpg';
-import hackathonImage from '../assets/images/hackaton.png';
+import eyLogo from '@/assets/logo/ey-logo.jpg';
+import synergheticLogo from '@/assets/logo/synerghetic-logo.svg';
+import badierLogo from '@/assets/logo/logo-badier.jpg';
+import mandatImage from '@/assets/images/mandat-2425.jpg';
+import hackathonImage from '@/assets/images/hackaton.png';
 
 const isVisible = ref(false);
 const projectContent = ref(null);

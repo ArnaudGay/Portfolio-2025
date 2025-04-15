@@ -31,6 +31,9 @@
   --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.2);
   --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.3);
   --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.4);
+
+  // Navbar height
+  --navbar-height: 80px;
 }
 
 // Reset & Base Styles
@@ -88,6 +91,8 @@ section {
   align-items: center;
   position: relative;
   background-color: var(--color-background);
+  padding-top: var(--navbar-height);
+  scroll-margin-top: var(--navbar-height);
 }
 
 // Animations

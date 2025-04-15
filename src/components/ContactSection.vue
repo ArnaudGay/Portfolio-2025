@@ -1,74 +1,31 @@
 <template>
   <section id="contact" class="contact">
     <div class="container">
-      <div ref="contactContent" class="contact-content fade-in" :class="{ visible: isVisible }">
+      <div ref="contactContent" class="contact-content" :class="{ visible: isVisible }">
         <h2>Contact</h2>
-        <div class="contact-grid">
-          <div class="contact-info">
-            <h3>Coordonnées</h3>
-            <ul class="contact-links">
-              <li>
-                <a href="mailto:arnogay@gmail.com" class="contact-link">
-                  <span class="link-icon">✉️</span>
-                  arnogay@gmail.com
-                </a>
-              </li>
-              <li>
-                <a href="https://linkedin.com/in/arnaud-gay-159634193/" target="_blank" class="contact-link">
-                  <span class="link-icon">🔗</span>
-                  LinkedIn
-                </a>
-              </li>
-              <li>
-                <a href="https://github.com/ArnaudGay" target="_blank" class="contact-link">
-                  <span class="link-icon">💻</span>
-                  GitHub
-                </a>
-              </li>
-            </ul>
-          </div>
+        <p>N'hésitez pas à me contacter pour discuter de vos projets ou pour toute question.</p>
+        
+        <div class="contact-cards">
+          <a href="mailto:arnaud.gay@edu.devinci.fr" class="contact-card" target="_blank" rel="noopener noreferrer">
+            <div class="card-content">
+              <div class="contact-icon" v-html="emailIcon"></div>
+              <h3>Email</h3>
+            </div>
+          </a>
 
-          <div class="contact-form">
-            <h3>Discutons-en !</h3>
-            <form @submit.prevent="handleSubmit" class="form">
-              <div class="form-group">
-                <label for="name">Nom</label>
-                <input
-                  type="text"
-                  id="name"
-                  v-model="form.name"
-                  required
-                  placeholder="Votre nom"
-                >
-              </div>
+          <a href="https://www.linkedin.com/in/arnaud-gay/" class="contact-card" target="_blank" rel="noopener noreferrer">
+            <div class="card-content">
+              <div class="contact-icon" v-html="linkedinIcon"></div>
+              <h3>LinkedIn</h3>
+            </div>
+          </a>
 
-              <div class="form-group">
-                <label for="email">Email</label>
-                <input
-                  type="email"
-                  id="email"
-                  v-model="form.email"
-                  required
-                  placeholder="Votre email"
-                >
-              </div>
-
-              <div class="form-group">
-                <label for="message">Message</label>
-                <textarea
-                  id="message"
-                  v-model="form.message"
-                  required
-                  placeholder="Votre message"
-                  rows="5"
-                ></textarea>
-              </div>
-
-              <button type="submit" class="submit-button" :disabled="isSubmitting">
-                {{ isSubmitting ? 'Envoi en cours...' : 'Envoyer' }}
-              </button>
-            </form>
-          </div>
+          <a href="https://github.com/arnaudgay" class="contact-card" target="_blank" rel="noopener noreferrer">
+            <div class="card-content">
+              <div class="contact-icon" v-html="githubIcon"></div>
+              <h3>GitHub</h3>
+            </div>
+          </a>
         </div>
       </div>
     </div>
@@ -76,159 +33,136 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
-import { useIntersectionObserver } from '@vueuse/core';
+import { ref, onMounted } from 'vue'
+import { useIntersectionObserver } from '@vueuse/core'
+import emailIcon from '@/assets/icons/email.svg?raw'
+import linkedinIcon from '@/assets/icons/linkedin.svg?raw'
+import githubIcon from '@/assets/icons/github.svg?raw'
 
-const isVisible = ref(false);
-const contactContent = ref(null);
-const isSubmitting = ref(false);
-
-const form = ref({
-  name: '',
-  email: '',
-  message: ''
-});
+const isVisible = ref(false)
+const contactContent = ref(null)
 
 onMounted(() => {
   useIntersectionObserver(
     contactContent,
     ([{ isIntersecting }]) => {
       if (isIntersecting) {
-        isVisible.value = true;
+        isVisible.value = true
       }
     },
     { threshold: 0.1 }
-  );
-});
-
-const handleSubmit = async () => {
-  isSubmitting.value = true;
-  // TODO: Implement form submission logic
-  await new Promise(resolve => setTimeout(resolve, 1000)); // Simulate API call
-  isSubmitting.value = false;
-  form.value = { name: '', email: '', message: '' };
-};
+  )
+})
 </script>
 
 <style lang="scss" scoped>
 .contact {
-  background-color: var(--color-secondary);
-  color: var(--color-text);
+  padding: var(--spacing-xl) 0;
+  background-color: var(--color-background);
+  position: relative;
+  z-index: 1;
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--spacing-lg);
+  }
 
   .contact-content {
-    max-width: 1000px;
-    margin: 0 auto;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+
+    &.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: var(--spacing-md);
+      color: var(--color-primary);
+    }
+
+    p {
+      text-align: center;
+      margin-bottom: var(--spacing-xl);
+      color: var(--color-text-secondary);
+    }
   }
 
-  h2 {
-    color: var(--color-primary-light);
-    text-align: center;
-    margin-bottom: var(--spacing-xl);
-  }
-
-  .contact-grid {
+  .contact-cards {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: var(--spacing-xl);
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--spacing-lg);
+    margin-top: var(--spacing-xl);
   }
 
-  .contact-info {
-    h3 {
-      color: var(--color-primary);
-      margin-bottom: var(--spacing-lg);
-    }
+  .contact-card {
+    text-decoration: none;
+    background-color: var(--color-background-alt);
+    border-radius: 12px;
+    padding: var(--spacing-lg);
+    transition: var(--transition-fast);
+    border: 1px solid var(--color-border);
+    cursor: pointer;
 
-    .contact-links {
-      list-style: none;
-      
-      li {
-        margin-bottom: var(--spacing-md);
-      }
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-md);
+      border-color: var(--color-primary);
 
-      .contact-link {
-        color: var(--color-text);
-        text-decoration: none;
-        display: flex;
-        align-items: center;
-        gap: var(--spacing-sm);
-        transition: var(--transition-fast);
-
-        &:hover {
-          color: var(--color-accent);
-        }
-
-        .link-icon {
-          font-size: 1.2rem;
-        }
+      .contact-icon {
+        transform: scale(1.1);
+        filter: brightness(1.2);
       }
     }
-  }
 
-  .contact-form {
-    h3 {
-      color: var(--color-primary);
-      margin-bottom: var(--spacing-lg);
-    }
-
-    .form {
+    .card-content {
       display: flex;
       flex-direction: column;
+      align-items: center;
+      text-align: center;
       gap: var(--spacing-md);
     }
 
-    .form-group {
+    .contact-icon {
+      width: 48px;
+      height: 48px;
+      transition: transform 0.3s ease, filter 0.3s ease;
+      color: var(--color-primary);
+      fill: currentColor;
       display: flex;
-      flex-direction: column;
-      gap: var(--spacing-xs);
+      align-items: center;
+      justify-content: center;
 
-      label {
-        font-weight: 500;
-        color: var(--color-primary);
-      }
-
-      input,
-      textarea {
-        padding: var(--spacing-sm);
-        border: 1px solid var(--color-background);
-        border-radius: 8px;
-        background-color: var(--color-background);
-        transition: var(--transition-fast);
-
-        &:focus {
-          outline: none;
-          border-color: var(--color-accent);
-          box-shadow: 0 0 0 2px rgba(255, 51, 102, 0.1);
-        }
+      :deep(svg) {
+        width: 100%;
+        height: 100%;
       }
     }
 
-    .submit-button {
-      background-color: var(--color-accent);
-      color: var(--color-secondary);
-      border: none;
-      padding: var(--spacing-sm) var(--spacing-lg);
-      border-radius: 50px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: var(--transition-fast);
-      margin-top: var(--spacing-md);
+    h3 {
+      color: var(--color-primary);
+      margin: 0;
+    }
 
-      &:hover:not(:disabled) {
-        transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(255, 51, 102, 0.3);
-      }
-
-      &:disabled {
-        opacity: 0.7;
-        cursor: not-allowed;
-      }
+    p {
+      color: var(--color-text);
+      margin: 0;
     }
   }
 }
 
 @media (max-width: 768px) {
   .contact {
-    .contact-grid {
+    padding: var(--spacing-lg) 0;
+
+    .container {
+      padding: 0 var(--spacing-md);
+    }
+
+    .contact-cards {
       grid-template-columns: 1fr;
     }
   }

@@ -30,5 +30,6 @@ export default defineConfig({
   },
   optimizeDeps: {
     include: ['vue', '@vueuse/core']
-  }
+  },
+  publicDir: 'public'
 })

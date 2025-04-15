@@ -1,32 +1,26 @@
 <template>
-  <footer class="footer">
+  <nav class="navbar">
     <div class="container">
-      <div class="footer-content">
-        <div class="footer-logo">
+      <div class="navbar-content">
+        <div class="navbar-logo">
           <img :src="logo" alt="Logo Arnaud Gay" class="logo">
         </div>
-        
-        <p>Merci de votre visite !</p>
-        
-        <div class="footer-links">
-          <a href="#" class="footer-link">Accueil</a>
-          <a href="#about" class="footer-link">À propos</a>
-          <a href="#skills" class="footer-link">Compétences</a>
-          <a href="#project" class="footer-link">Projets</a>
-          <a href="#contact" class="footer-link">Contact</a>
+
+        <div class="navbar-links">
+          <a href="#" class="nav-link">Accueil</a>
+          <a href="#about" class="nav-link">À propos</a>
+          <a href="#skills" class="nav-link">Compétences</a>
+          <a href="#project" class="nav-link">Projets</a>
+          <a href="#contact" class="nav-link">Contact</a>
         </div>
 
         <button @click="openCV" class="cv-button">
           Voir mon CV
           <span class="button-arrow">→</span>
         </button>
-
-        <div class="footer-copyright">
-          © {{ new Date().getFullYear() }} Arnaud Gay. Tous droits réservés.
-        </div>
       </div>
     </div>
-  </footer>
+  </nav>
 
   <CVViewer :is-open="isCVOpen" @close="closeCV" />
 </template>
@@ -48,59 +42,52 @@ const closeCV = () => {
 </script>
 
 <style lang="scss" scoped>
-.footer {
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
   background-color: var(--color-background);
-  color: var(--color-text);
-  padding: var(--spacing-xl) 0;
-  margin-top: var(--spacing-xl);
-  border-top: 1px solid var(--color-border);
-  position: relative;
-  z-index: 2;
+  border-bottom: 1px solid var(--color-border);
+  z-index: 1000;
+  padding: var(--spacing-md) 0;
+  backdrop-filter: blur(10px);
+  background-color: rgba(var(--color-background-rgb), 0.8);
+  height: var(--navbar-height);
 
   .container {
-    max-width: 1000px;
+    max-width: 1200px;
     margin: 0 auto;
     padding: 0 var(--spacing-lg);
+    height: 100%;
   }
 
-  .footer-content {
+  .navbar-content {
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
     align-items: center;
-    gap: var(--spacing-lg);
-    text-align: center;
+    height: 100%;
   }
 
-  .footer-logo {
-    margin-bottom: var(--spacing-md);
-    text-align: center;
-
+  .navbar-logo {
     .logo {
-      height: 60px;
+      height: 40px;
       width: auto;
-      margin: 0 auto;
     }
   }
 
-  p {
-    margin: 0;
-    font-size: 1.1rem;
-    color: var(--color-text);
-  }
-
-  .footer-links {
+  .navbar-links {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
     gap: var(--spacing-lg);
-    margin-bottom: var(--spacing-md);
+    align-items: center;
 
-    .footer-link {
+    .nav-link {
       color: var(--color-text);
       text-decoration: none;
       font-weight: 500;
       transition: var(--transition-fast);
       position: relative;
+      padding: var(--spacing-xs) 0;
 
       &:hover {
         color: var(--color-primary-light);
@@ -113,7 +100,7 @@ const closeCV = () => {
       &::after {
         content: '';
         position: absolute;
-        bottom: -2px;
+        bottom: 0;
         left: 0;
         width: 0;
         height: 2px;
@@ -126,17 +113,15 @@ const closeCV = () => {
   .cv-button {
     display: inline-flex;
     align-items: center;
-    padding: var(--spacing-sm) var(--spacing-md);
+    padding: var(--spacing-xs) var(--spacing-md);
     background-color: var(--color-primary);
     color: white;
     text-decoration: none;
     border-radius: 6px;
     transition: all 0.3s ease;
-    margin: var(--spacing-md) 0;
-    text-align: center;
+    font-weight: 500;
     border: none;
     cursor: pointer;
-    font-weight: 500;
 
     &:hover {
       background-color: var(--color-primary-dark);
@@ -152,26 +137,28 @@ const closeCV = () => {
       transition: transform 0.3s ease;
     }
   }
-
-  .footer-copyright {
-    color: var(--color-text-secondary);
-    font-size: 0.9rem;
-    text-align: center;
-  }
 }
 
 @media (max-width: 768px) {
-  .footer {
-    padding: var(--spacing-lg) 0;
+  .navbar {
+    padding: var(--spacing-sm) 0;
 
     .container {
       padding: 0 var(--spacing-md);
     }
 
-    .footer-links {
+    .navbar-content {
       flex-direction: column;
-      align-items: center;
       gap: var(--spacing-md);
+    }
+
+    .navbar-links {
+      flex-direction: column;
+      gap: var(--spacing-md);
+    }
+
+    .cv-button {
+      margin-top: var(--spacing-sm);
     }
   }
 }
