@@ -6,18 +6,23 @@
           <img :src="logo" alt="Logo Arnaud Gay" class="logo">
         </div>
 
-        <div class="navbar-links">
-          <a href="#" class="nav-link">Accueil</a>
-          <a href="#about" class="nav-link">À propos</a>
-          <a href="#skills" class="nav-link">Compétences</a>
-          <a href="#project" class="nav-link">Projets</a>
-          <a href="#contact" class="nav-link">Contact</a>
-        </div>
-
-        <button @click="openCV" class="cv-button">
-          Voir mon CV
-          <span class="button-arrow">→</span>
+        <button class="burger-menu" @click="toggleMenu" :class="{ 'active': isMenuOpen }">
+          <span></span>
+          <span></span>
+          <span></span>
         </button>
+
+        <div class="navbar-links" :class="{ 'active': isMenuOpen }">
+          <a href="#" class="nav-link" @click="closeMenu">Accueil</a>
+          <a href="#about" class="nav-link" @click="closeMenu">À propos</a>
+          <a href="#skills" class="nav-link" @click="closeMenu">Compétences</a>
+          <a href="#project" class="nav-link" @click="closeMenu">Projets</a>
+          <a href="#contact" class="nav-link" @click="closeMenu">Contact</a>
+          <a :href="cvUrl" target="_blank" class="cv-button" @click="closeMenu">
+            Voir mon CV
+            <span class="button-arrow">→</span>
+          </a>
+        </div>
       </div>
     </div>
   </nav>
@@ -29,15 +34,26 @@
 import { ref } from 'vue'
 import CVViewer from './CVViewer.vue'
 import logo from '@/assets/logo/logo_ag.png'
+import cvUrl from '@/assets/cv_arnaud.pdf'
 
 const isCVOpen = ref(false)
+const isMenuOpen = ref(false)
 
 const openCV = () => {
   isCVOpen.value = true
+  isMenuOpen.value = false
 }
 
 const closeCV = () => {
   isCVOpen.value = false
+}
+
+const toggleMenu = () => {
+  isMenuOpen.value = !isMenuOpen.value
+}
+
+const closeMenu = () => {
+  isMenuOpen.value = false
 }
 </script>
 
@@ -73,6 +89,39 @@ const closeCV = () => {
     .logo {
       height: 40px;
       width: auto;
+    }
+  }
+
+  .burger-menu {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30px;
+    height: 21px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 10;
+
+    span {
+      width: 100%;
+      height: 3px;
+      background-color: var(--color-text);
+      border-radius: 3px;
+      transition: all 0.3s ease;
+    }
+
+    &.active {
+      span:nth-child(1) {
+        transform: translateY(9px) rotate(45deg);
+      }
+      span:nth-child(2) {
+        opacity: 0;
+      }
+      span:nth-child(3) {
+        transform: translateY(-9px) rotate(-45deg);
+      }
     }
   }
 
@@ -147,18 +196,43 @@ const closeCV = () => {
       padding: 0 var(--spacing-md);
     }
 
-    .navbar-content {
-      flex-direction: column;
-      gap: var(--spacing-md);
+    .burger-menu {
+      display: flex;
     }
 
     .navbar-links {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 100vh;
+      background-color: var(--color-background);
       flex-direction: column;
-      gap: var(--spacing-md);
-    }
+      padding: calc(var(--navbar-height) + var(--spacing-lg)) var(--spacing-lg);
+      gap: var(--spacing-lg);
+      transform: translateY(-100%);
+      opacity: 0;
+      transition: all 0.3s ease;
+      pointer-events: none;
+      z-index: 999;
 
-    .cv-button {
-      margin-top: var(--spacing-sm);
+      &.active {
+        transform: translateY(0);
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .nav-link {
+        font-size: 1.2rem;
+        padding: var(--spacing-sm) 0;
+      }
+
+      .cv-button {
+        margin-top: var(--spacing-lg);
+        padding: var(--spacing-sm) var(--spacing-lg);
+        font-size: 1.1rem;
+      }
     }
   }
 }

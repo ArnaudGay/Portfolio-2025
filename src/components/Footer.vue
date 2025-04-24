@@ -16,10 +16,10 @@
           <a href="#contact" class="footer-link">Contact</a>
         </div>
 
-        <button @click="openCV" class="cv-button">
+        <a :href="cvUrl" target="_blank" class="cv-button">
           Voir mon CV
           <span class="button-arrow">→</span>
-        </button>
+        </a>
 
         <div class="footer-copyright">
           © {{ new Date().getFullYear() }} Arnaud Gay. Tous droits réservés.
@@ -35,6 +35,7 @@
 import { ref } from 'vue'
 import CVViewer from './CVViewer.vue'
 import logo from '@/assets/logo/logo_ag.png'
+import cvUrl from '@/assets/cv_arnaud.pdf'
 
 const isCVOpen = ref(false)
 
